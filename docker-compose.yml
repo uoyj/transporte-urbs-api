@@ -1,0 +1,28 @@
+services:
+  api:
+    build: .
+    container_name: transporte-urbs-api
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      POSTGRES_HOST: ${POSTGRES_HOST:-192.168.2.114}
+      POSTGRES_PORT: ${POSTGRES_PORT:-5432}
+      POSTGRES_DB: ${POSTGRES_DB:-urbs_db}
+      POSTGRES_USER: ${POSTGRES_USER:-urbs_api_reader}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      PYTHONPATH: /app/src:/shared/ingestor/src
+    volumes:
+      - .:/app
+      - ../transporte-urbs-ingestor/src:/shared/ingestor/src:ro
+    networks:
+      - urbs_api_internal
+    restart: unless-stopped
+
+networks:
+  urbs_api_internal:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.29.0.0/16
