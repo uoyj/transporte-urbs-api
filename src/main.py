@@ -4,16 +4,27 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from src.router import router
 
+import os
+
 app = FastAPI(
     title="Transporte URBS API",
     description="API somente-leitura para linhas, pontos e horários da URBS (Curitiba).",
     version="0.1.0",
 )
 
+
+app = FastAPI(title="Transporte URBS API")
+
+# CORS origins vêm do .env (não-commitado); fallback seguro para dev local
+cors_origins = [
+    o.strip() for o in os.getenv("CORS_ORIGINS", "http://localhost:8081").split(",")
+    if o.strip()
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8081", "http://192.168.2.115:8081"],
-    allow_methods=["GET"],
+    allow_origins=cors_origins,
+    allow_methods=["*"],
     allow_headers=["*"],
 )
 
