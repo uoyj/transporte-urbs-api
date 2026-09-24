@@ -1,6 +1,6 @@
-"""Schemas Pydantic para serialização de respostas (read-only)."""
+"""Schemas Pydantic para serializacao de respostas (read-only)."""
 from pydantic import BaseModel, ConfigDict
-from typing import Optional
+from typing import Optional, List
 
 
 class LinhaResponse(BaseModel):
@@ -12,3 +12,4 @@ class LinhaResponse(BaseModel):
     origem: Optional[str] = None
     destino: Optional[str] = None
     cor: Optional[str] = None
+    bbox: Optional[List[float]] = None

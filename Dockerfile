@@ -11,7 +11,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Install Python deps from pyproject.toml
 COPY pyproject.toml ./
-RUN pip install --no-cache-dir fastapi uvicorn[standard] sqlalchemy psycopg2-binary python-dotenv
+RUN pip install --no-cache-dir \
+    fastapi uvicorn[standard] sqlalchemy psycopg2-binary python-dotenv \
+    pydantic geoalchemy2 shapely
 
 # Copy application source (installed as editable so src.* imports resolve)
 COPY src/ ./src/

@@ -24,5 +24,6 @@ Base = _models.Base
 Linha = _models.Linha
 Ponto = _models.Ponto
 Horario = _models.Horario
+Trajeto = _models.Trajeto
 
-__all__ = ["Base", "Linha", "Ponto", "Horario"]
+__all__ = ["Base", "Linha", "Ponto", "Horario", "Trajeto"]
